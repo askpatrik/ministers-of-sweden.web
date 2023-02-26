@@ -17,7 +17,7 @@ namespace ministers_of_sweden.web.Controllers
             _options = new JsonSerializerOptions{PropertyNameCaseInsensitive = true};
         }
 
-//Works but needs to be nicer
+        // MINISTER LIST
        [HttpGet("list")]
        public async Task<IActionResult> Index()
     {
@@ -34,7 +34,7 @@ namespace ministers_of_sweden.web.Controllers
         return View ("Index", ministers);
 
 
-//Works but needs to be nicer
+        // MINSITER DETAILS
     }   
        [HttpGet("details/{id}")]
        public async Task<IActionResult> Details (int id)
@@ -49,6 +49,22 @@ namespace ministers_of_sweden.web.Controllers
 
         var minister = JsonSerializer.Deserialize<MinisterDetailModel>(json, _options);
         return View ("Details", minister);
+    }
+        //MINISTER DELETE
+
+        [HttpGet("delete/{id}")]
+        public async Task<IActionResult> Delete (int id)
+    {
+        using var client = _httpClient.CreateClient();
+        //Nu kan vi göra ett anrop över internet
+        var response = await client.GetAsync($"{_baseUrl}/ministers/delete/{id}");
+
+        if(!response.IsSuccessStatusCode) return Content("It went wrong");
+
+        var json = await response.Content.ReadAsStringAsync();
+
+        return RedirectToAction(nameof(Index));
+        
     }
 
     
