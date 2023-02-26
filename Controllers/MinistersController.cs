@@ -1,4 +1,6 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using ministers_of_sweden.web.ViewModels;
 
 namespace ministers_of_sweden.web.Controllers
 {
@@ -6,14 +8,17 @@ namespace ministers_of_sweden.web.Controllers
     {
         private readonly IHttpClientFactory _httpClient;
         private readonly string _baseUrl;
+        private readonly JsonSerializerOptions _options;
 
         public MinistersController(IConfiguration config, IHttpClientFactory httpClient)
         {
             _httpClient = httpClient;
             _baseUrl = config.GetSection("apiSettings:baseUrl").Value;
+            _options = new JsonSerializerOptions{PropertyNameCaseInsensitive = true};
         }
 
-          public async Task<IActionResult> Index()
+       [HttpGet("list")]
+       public async Task<IActionResult> Index()
     {
         using var client = _httpClient.CreateClient();
         //Nu kan vi göra ett anrop över internet
@@ -23,7 +28,10 @@ namespace ministers_of_sweden.web.Controllers
 
         var json = await response.Content.ReadAsStringAsync();
 
-        
+        var ministers = JsonSerializer.Deserialize<IList<IndexViewModel>>(json, _options);
+
+        return View ("Index", ministers);
+
     }   
 
     }
