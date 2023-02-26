@@ -1,14 +1,18 @@
 @model IList<ministers_of_sweden.web.ViewModels.IndexViewModel>
 
 <section class="page">
-    <h1 class="page-title">Aktuella bilar för försäljning</h1>
+    <h1 class="page-title">List over all swedish political ministers!</h1>
 
     <div class="gallery-wrapper">
         @foreach (var minister in Model)
         {
             <div class="gallery-card">
-                <div>@minister.Name</div>
-                <img src="@minister.ImageUrl" alt="@minister.Born">
+                <div>@minister.Id: @minister.Name 
+                    Type of Minister: @minister.Type
+                   
+                </div>
+                
+                <img src="@minister.ImageUrl" alt="@minister.ImageUrl">
                 
                 </div>
         }

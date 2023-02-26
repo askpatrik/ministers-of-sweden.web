@@ -17,6 +17,7 @@ namespace ministers_of_sweden.web.Controllers
             _options = new JsonSerializerOptions{PropertyNameCaseInsensitive = true};
         }
 
+//Works but needs to be nicer
        [HttpGet("list")]
        public async Task<IActionResult> Index()
     {
@@ -32,8 +33,25 @@ namespace ministers_of_sweden.web.Controllers
 
         return View ("Index", ministers);
 
-    }   
 
+//Works but needs to be nicer
+    }   
+       [HttpGet("details/{id}")]
+       public async Task<IActionResult> Details (int id)
+    {
+        using var client = _httpClient.CreateClient();
+        //Nu kan vi göra ett anrop över internet
+        var response = await client.GetAsync($"{_baseUrl}/ministers/{id}");
+
+        if(!response.IsSuccessStatusCode) return Content("It went wrong");
+
+        var json = await response.Content.ReadAsStringAsync();
+
+        var minister = JsonSerializer.Deserialize<MinisterDetailModel>(json, _options);
+        return View ("Details", minister);
+    }
+
+    
     }
   
-} 
+}
