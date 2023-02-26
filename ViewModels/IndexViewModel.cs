@@ -11,6 +11,8 @@ namespace ministers_of_sweden.web.ViewModels
         public string Name { get; set; }
         public string Born { get; set; }
         public string ImageUrl { get; set; }
+
+        
    
     }
 }
