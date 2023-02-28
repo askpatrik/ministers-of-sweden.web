@@ -8,11 +8,22 @@
         {
             <div class="gallery-card">
                 <div>@minister.Id: @minister.Name 
-                    Type of Minister: @minister.Type
+                <img src="@minister.ImageUrl" alt="@minister.Name">
+
+                <div><span>@minister.Name</span><span> @minister.Type</span></div>
                    
+                <div class="buttons-container">
+                <a class="btn btn-dark" asp-action="details" asp-controller="vehicles" asp-route-id="@minister.Id">Se
+                        mer</a>
+                    <a class="btn btn-dark" asp-action="edit" asp-controller="vehicles" asp-route-id="@minister.Id">Ändra</a>
+                    <a class="btn btn-warning" asp-action="delete" asp-controller="vehicles"
+                    asp-route-id="@minister.Id">Såld</a>
+
+
+                </div>
                 </div>
                 
-                <img src="@minister.ImageUrl" alt="@minister.ImageUrl">
+           
                 
                 </div>
         }
