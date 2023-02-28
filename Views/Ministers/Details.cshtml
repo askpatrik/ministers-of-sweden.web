@@ -1,8 +1,14 @@
 @model ministers_of_sweden.web.ViewModels.MinisterDetailModel
     
       <div> Namn: @Model.Name </div>
+      <div> Type of Minister: @Model.Type </div>
+      <div> Department: @Model.Department </div>
+      <div> Party Affiliation: @Model.Party </div>
+      <div> Birth Year: @Model.Born </div>
       <div> Gender: @Model.Sex </div>
-      <div> Academics: @Model.AcademicField </div>
-      <div> Gender: @Model.Sex </div>
-      <div> Gender: @Model.Sex </div>
-      <div> Gender: @Model.Sex </div>
+      <div> Academic Field: @Model.AcademicField </div>
+      <div> Has Academic Degree: @Model.HasAcademicDegree </div>
+     
+      <img src="@Model.ImageUrl" alt="@Model.Name">
+      
+    

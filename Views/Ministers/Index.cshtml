@@ -13,12 +13,10 @@
                 <div><span>@minister.Name</span><span> @minister.Type</span></div>
                    
                 <div class="buttons-container">
-                <a class="btn btn-dark" asp-action="details" asp-controller="vehicles" asp-route-id="@minister.Id">Se
-                        mer</a>
-                    <a class="btn btn-dark" asp-action="edit" asp-controller="vehicles" asp-route-id="@minister.Id">Ändra</a>
-                    <a class="btn btn-warning" asp-action="delete" asp-controller="vehicles"
-                    asp-route-id="@minister.Id">Såld</a>
-
+                <a class="btn btn-dark" asp-action="details" asp-controller="ministers" asp-route-id="@minister.Id">Minister Details</a>
+                    <a class="btn btn-dark" asp-action="delete" asp-controller="ministers" asp-route-id="@minister.Id">Delete Minister</a>
+                    <a class="btn btn-warning" asp-action="add" asp-controller="ministers"
+                    asp-route-id="@minister.Id">Add Minsiter</a>
 
                 </div>
                 </div>
