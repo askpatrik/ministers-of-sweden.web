@@ -1,1 +1,59 @@
-@model 
+@model ministers_of_sweden.web.ViewModels.MinisterPostViewModel
+
+
+<section class="page">
+    <h1 class="page-title">Add Minister</h1>
+    <form asp-action="Create" method="post">
+        <div class="form-control">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" type="text">
+            <span class="error" asp-validation-for="Name"></span>
+        </div>
+        <div class="form-control">
+            <label asp-for="Type"></label>
+            <input asp-for="Type" type="text">
+            <span class="error" asp-validation-for="Type"></span>
+        </div>
+        <div class="form-control">
+            <label asp-for="Born"></label>
+            <input asp-for="Born" type="text">
+            <span class="error" asp-validation-for="Born"></span>
+        </div>
+         <div class="form-control">
+            <label asp-for="HasAcademicDegree"></label>
+            <input asp-for="HasAcademicDegree" type="text">
+            <span class="error" asp-validation-for="HasAcademicDegree"></span>
+        </div>
+            <div class="form-control">
+            <label asp-for="Sex"></label>
+            <input asp-for="Sex" type="text">
+            <span class="error" asp-validation-for="Sex"></span>
+        
+         <div class="form-control">
+            <label asp-for="Department"></label>
+            <select asp-for="Department" asp-items="Model.Departments"></select>
+            <span class="error" asp-validation-for="Department"></span>
+        </div>
+
+          
+         <div class="form-control">
+            <label asp-for="AcademicField"></label>
+            <select asp-for="AcademicField" asp-items="Model.AcademicFields"></select>
+            <span class="error" asp-validation-for="AcademicField"></span>
+        </div>
+
+
+         <div class="form-control">
+            <label asp-for="Party"></label>
+            <select asp-for="Party" asp-items="Model.Parties"></select>
+            <span class="error" asp-validation-for="Party"></span>
+        </div>
+
+            <div class="form-control">
+            <div class="buttons-container">
+                <button class="btn btn-dark">Save</button>
+                <a asp-action="Index" class="btn btn-warning">Cancel</a>
+        </div>
+      </div>
+    </form>
+</section>
