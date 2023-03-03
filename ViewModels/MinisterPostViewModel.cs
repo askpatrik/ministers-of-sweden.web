@@ -10,30 +10,39 @@ namespace ministers_of_sweden.web.ViewModels
 {
     public class MinisterPostViewModel
     {
-        [Required(ErrorMessage = "Name missing!")]
+        [RegularExpression("^[a-zA-Z]+$", ErrorMessage = "Please enter a valid name.")]
         public string Name {get; set;}
-         [Required(ErrorMessage = "Type of Minister missing!")]
-         [DisplayName("Type of Minister")]
+      
+        [DisplayName("Type of Minister")]
+        [RegularExpression("^[a-zA-Z]+$", ErrorMessage = "Please enter a valid minister type.")]
         public string Type { get; set; }
-         [Required(ErrorMessage = "Birth Year missing!")]
-         [DisplayName("Birth Year")]
-        public int Born {get; set;}
-         [Required(ErrorMessage = "Gender missing")]
-          [DisplayName("Gender")]
+
+        [DisplayName("Birth Year")]
+        [Range(1900, 2008, ErrorMessage = "Please enter a birth year between 1900 and 2008.")]
+        public int Born {get; set;} = 1975;
+
+        [Required(ErrorMessage = "Please enter a gender.")]
+        [DisplayName("Gender")]
         public string Sex { get; set; }
-        public string ImgUrl { get; set; }
-         [Required(ErrorMessage = "HasAcademicDegree missing")]
+       
+        [DisplayName("Has Academic Degree (True/False)")]
+        [RegularExpression("^(True|False)$", ErrorMessage = "Please enter 'True' or 'False'.")]
         public bool HasAcademicDegree { get; set; }
-         [Required(ErrorMessage = "Department missing!")]
+        [Required(ErrorMessage = "Department missing!")]
         public string Department {get; set;}
       
         public List<SelectListItem> Departments { get; set; } 
+        [Required(ErrorMessage = "Department missing!")]
+
+        [DisplayName("Academic Field")]
         public string AcademicField {get; set;}
-     
-          public List<SelectListItem> AcademicFields { get; set; } 
+
+        public List<SelectListItem> AcademicFields { get; set; } 
         public string Party {get; set;}
-          public List<SelectListItem> Parties { get; set; }
+        public List<SelectListItem> Parties { get; set; }
+        public string ImgUrl { get; set; 
   
        
     }
+}
 }
