@@ -119,16 +119,11 @@ namespace ministers_of_sweden.web.Controllers
         academicFieldsList.Add(new SelectListItem { Value = academicField.Name, Text = academicField.Name});   
         }
 
-        var ministers = new MinisterPostViewModel();
+       
+       var ministers = new MinisterPostViewModel();
         ministers.Parties = partiesList;
         ministers.Departments = departmentsList;
         ministers.AcademicFields = academicFieldsList;
-       
-//Get object data for parties, departments and academic fields from API and put into lists
-//create selectlists
-// Add list : Id and Name to selectlist.
-// new ministerpostmodel. Ministers.Parties = partieslist osv. 
-//skicka med till CreateVyn. 
 
      
         return View ("Create", ministers);
@@ -137,17 +132,72 @@ namespace ministers_of_sweden.web.Controllers
     [HttpPost("Create")]
         public async Task<IActionResult> Create (MinisterPostViewModel minister)
         {
-            
-        if (!ModelState.IsValid) return View("create", minister);
-       // if (!ModelState.IsValid) return View("create", minister);
         using var client = _httpClient.CreateClient();
+     
+     //Need to get the lists again for dropdown to work in Post!
 
+     //Get Party list
+     var responseParty = await client.GetAsync($"{_baseUrl}/parties");
+       if(!responseParty.IsSuccessStatusCode) return Content("It went wrong");
+
+       var jsonP = await responseParty.Content.ReadAsStringAsync();
+
+        var parties = System.Text.Json.JsonSerializer.Deserialize<IList<PartyViewModel>>(jsonP, _options);
+        
+        var partiesList = new List<SelectListItem>();
+        foreach (var party in parties)
+        {
+        partiesList.Add(new SelectListItem { Value = party.Name, Text = party.Name});   
+        }
+
+    //Get Deparment list
+    var responseDepartment = await client.GetAsync($"{_baseUrl}/departments");
+     if(!responseDepartment.IsSuccessStatusCode) return Content("It went wrong");
+
+    var jsonD = await responseDepartment.Content.ReadAsStringAsync();
+    var departments = System.Text.Json.JsonSerializer.Deserialize<IList<DepartmentViewModel>>(jsonD, _options);
+
+     var departmentsList = new List<SelectListItem>();
+        foreach (var department in departments)
+        {
+        departmentsList.Add(new SelectListItem { Value = department.Name, Text = department.Name});   
+        }
+    //Get Academic Field List
+    var responseAcademicField = await client.GetAsync($"{_baseUrl}/academicfields");
+     if(!responseParty.IsSuccessStatusCode) return Content("It went wrong");
+
+     var jsonA = await responseAcademicField.Content.ReadAsStringAsync();
+    var academicFields = System.Text.Json.JsonSerializer.Deserialize<IList<AcademicFieldViewModel>>(jsonA, _options);
+
+     var academicFieldsList = new List<SelectListItem>();
+        foreach (var academicField in academicFields)
+        {
+        academicFieldsList.Add(new SelectListItem { Value = academicField.Name, Text = academicField.Name});   
+        }
+
+       
+      
+        minister.Parties = partiesList;
+        minister.Departments = departmentsList;
+        minister.AcademicFields = academicFieldsList;
+       
+
+          
+        if (!ModelState.IsValid) return View("create", minister);
+    
+       // using var client = _httpClient.CreateClient();
+
+        //Serialize to JSON
         var myContent = JsonConvert.SerializeObject(minister);
+
+        //Construct a content object to send this data. Using ByteArrayContent
         var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
         var byteContent = new ByteArrayContent(buffer);
+
+        //Set the content type to let the API know it is JSON
         byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-        //Nu kan vi göra ett anrop över internet
+        //Send request with HTTPContent type
         var response = await client.PostAsync($"{_baseUrl}/ministers", byteContent);
 
         if(!response.IsSuccessStatusCode) return Content("It went wrong");
