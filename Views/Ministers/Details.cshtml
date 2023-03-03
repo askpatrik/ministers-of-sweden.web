@@ -10,17 +10,19 @@
             </span>
             <h2 class="vehicle-detail-header">@Model.Name - @Model.Type</h2>
             <img src="@Model.ImageUrl" alt="@Model.Name">
-            <div class="vehicle-detail-info">
-                <span><strong>Department</strong></span>
-                <span>@Model.Department</span>
-                <span><strong>Party Affiliation</strong></span>
-                <span>@Model.Party</span>
-                <span><strong>Birth Year</strong></span>
-                <span>@Model.Born</span>
-                <span><strong>Academic Field</strong></span>
-                <span>@Model.AcademicField </span>
-                  <span><strong>Academic Degree?</strong></span>
-                <span>@Model.HasAcademicDegree</span>
+         
+             <ul>
+                <li><strong>Department:</strong></span>
+                <span>@Model.Department</span></li>
+                <li><span><strong>Party Affiliation:</strong></span>
+                <span>@Model.Party</span></li>
+                <li><span><strong>Birth Year:</strong></span>
+                <span>@Model.Born</span></li>
+                <li><span><strong>Academic Field:</strong></span>
+                <span>@Model.AcademicField </span></li> 
+                  <li><span><strong>Academic Degree:</strong></span>
+               <span>@Model.HasAcademicDegree</span></li>
+                </ul>
             </div>
            
             <div></div>

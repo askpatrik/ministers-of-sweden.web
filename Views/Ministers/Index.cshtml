@@ -7,16 +7,17 @@
         @foreach (var minister in Model)
         {
             <div class="gallery-card">
-                <div>@minister.Id: @minister.Name 
+                <div> @minister.Name 
                 <img src="@minister.ImageUrl" alt="@minister.Name">
 
-                <div><span>@minister.Name</span><span> @minister.Type</span></div>
+                <div><span>@minister.Type</span><span> </div>
+               
                    
                 <div class="buttons-container">
                 <a class="btn btn-dark" asp-action="details" asp-controller="ministers" asp-route-id="@minister.Id">Minister Details</a>
-                    <a class="btn btn-dark" asp-action="delete" asp-controller="ministers" asp-route-id="@minister.Id">Delete Minister</a>
+                    <a class="btn btn-warning" asp-action="delete" asp-controller="ministers" asp-route-id="@minister.Id">Delete Minister</a>
                     
-                    <a class="btn btn-warning" asp-action="create" asp-controller="ministers">Add a new Minsiter</a>
+            
 
                 </div>
                 </div>  
